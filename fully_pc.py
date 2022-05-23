@@ -1,7 +1,7 @@
 ﻿# Créé par acarp, le 26/04/2022 
  #made with VSCODE
 
-#import everithing
+#import everYthing
 from pygame import mixer
 import time
 from pygame.locals import *
