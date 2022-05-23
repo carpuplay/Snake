@@ -1,17 +1,19 @@
-﻿# Créé par acarp, le 26/04/2022 avec EduPython
-#serpiente taca taca
+﻿# Créé par acarp, le 26/04/2022 
+ #made with VSCODE
+
+#import everithing
 from pygame import mixer
 import time
 from pygame.locals import *
 import pygame
 import random
 from os import path
-#from setings import *
 
-
+#basic music setings
 pygame.init()
 mixer.init()
 mixer.music.set_volume(100)
+
 #color definition
 black = pygame.Color(0,0,0)
 red = pygame.Color(255,0,0)
@@ -20,47 +22,49 @@ green = pygame.Color(0,255,0)
 blue = pygame.Color(0,0,255)
 violet= pygame.Color(255,0,255)
 
-#display settings
-
+#display and window settings
 display=pygame.display.set_mode((1920,1080),pygame.FULLSCREEN)
 x,y=display.get_size()
 print(x,y)
 dis_width=x
 dis_height=y
-
 pygame.display.update()
 pygame.display.set_caption('Snake by Carpu')
 logo = pygame.image.load('logeo.jpg')
 pygame.display.set_icon(logo)
 
+#clock setings
 starttime=time.time()
-  #run clock
 clock=pygame.time.Clock()
 
-snake_block=10  #snake
+#snake features
+snake_block=10  
 snake_speed=120
 
-# message system
+#font definition
 font_style = pygame.font.SysFont(None, 50)
 
+#snake basic creation
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(display, green, [x[0], x[1], snake_block, snake_block])
 
-
+#score displaying
 def Your_score(score):                                                            #show score
     value = font_style.render("Your Score: " + str(score), True, white )
     display.blit(value, [0, 0])
 
+#messages display feature
 def message(msg,color,x,y):
     mesg = font_style.render(msg, True, color)
     display.blit(mesg, [x, y])
 
+#images display feature
 def img_disp(img,x,y):
     imag=pygame.image.load(img)
     display.blit(imag,[x,y])
 
-
+#pause message display
 def message_p(msg,color):
     mesg = font_style.render(msg, True, color)
     display.blit(mesg, [dis_width/4, dis_height/2])
@@ -74,11 +78,12 @@ def show_highscore(x,y,score):
     Hiscore_text = font_style.render('Best Score :' + str(highscore),True,(255,0,0))
     display.blit (Hiscore_text,(x,y))
 
-def gameLoop():  # creating a function
+#creating the main loop
+def gameLoop():  
     game_over = False
     game_close = False
     run=True
-    while not game_over:
+    while not game_over:  
         game_over = False
         game_close = False
         game_pause = False
