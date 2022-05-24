@@ -47,15 +47,15 @@ def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(display, green, [x[0], x[1], snake_block, snake_block])
 
-
+#score display
 def Your_score(score):                                                            #show score
     value = font_style.render("Your Score: " + str(score), True, white )
     display.blit(value, [0, 0])
-
+#messages display
 def message(msg,color,x,y):
     mesg = font_style.render(msg, True, color)
     display.blit(mesg, [x, y])
-
+#image display
 def img_disp(img,x,y):
     imag=pygame.image.load(img)
     display.blit(imag,[x,y])
@@ -64,7 +64,7 @@ def img_disp(img,x,y):
 def message_p(msg,color):
     mesg = font_style.render(msg, True, color)
     display.blit(mesg, [dis_width/4, dis_height/2])
-
+#save the best score in a txt file
 with open(".\scorelog.txt","r") as f:
     highscore = f.read()
 
@@ -184,14 +184,15 @@ def gameLoop():  # creating a function
             snake_List.append(snake_Head)
             if len(snake_List)>Lenght_of_snake:
                 del snake_List[0]
-
-            for x in snake_List[:-1]:
+            #when the head of the snake touches his body, the game is lost
+            for x in snake_List[:-1]: 
                 if x == snake_Head:
                     game_close = True
             our_snake(snake_block,snake_List)
             Your_score(maz)
             pygame.display.update()
-
+            
+            #when the snake's head touches the food, the lenght of the snake increase by 10 and the score increase by 1
             if abs(x1-foodx) <=7 and abs(y1-foody) <=7 :
                 foodx = round(random.randrange(0, dis_width - snake_block)/ml)*mlt
                 foody = round(random.randrange(0, dis_height - snake_block)/ml)*mlt
@@ -203,16 +204,17 @@ def gameLoop():  # creating a function
                 foody2 = round(random.randrange(0, dis_height - snake_block)/mlt)*mlt
                 Lenght_of_snake+=8
                 maz+=1
-
+            
+            #if the player loses, the lost music is played
             if game_close==True:
                 pygame.mixer.music.load('dark.mp3')
                 pygame.mixer.music.play(start=0.2)
-            if game_pause==False and game_close==False:
+            if game_pause==False and game_close==False: #if the game is in progress, a music is played
                 pygame.mixer.music.load('halo.mp3')
                 pygame.mixer.music.play(start=4.0)
 
 
-            clock.tick(60)
+            clock.tick(60) #the fps
     pygame.quit()
     quit()
 gameLoop()
