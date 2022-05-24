@@ -75,80 +75,82 @@ def show_highscore(x,y,score):
     display.blit (Hiscore_text,(x,y))
 
 def gameLoop():  # creating a function
-    game_over = False
+    game_over = False #when the game is in progress, the game is not stopped or closed
     game_close = False
-    run=True
-    while not game_over:
-        game_over = False
-        game_close = False
-        game_pause = False
-        x1 = dis_width / 2
+    run=True 
+    while not game_over: 
+        game_over = False #when the game is in progress, the game is not closed
+        game_close = False #when the game is in progress, the game is not stopped
+        game_pause = False #when the game is in progress, the game is not in pause
+        x1 = dis_width / 2 #initials coordinates of the snake in the middle of the game area.
         y1 = dis_height / 2
-        fscore=[]
-        snake_List=[]
-        Lenght_of_snake=1
-        maz=0
+        fscore=[] #score list
+        snake_List=[] #position of all part of the snake
+        Lenght_of_snake=1 #initil lenght of the snake
+        maz=0 #
 
         pygame.display.update()
-        sre=8
+        sre=8 #variables
         ml=10
         mlt=10
-        x1_change = 0
+        x1_change = 0 #initial movememt of the snake. he don't moove
         y1_change = 0
-
-        foodx = round(random.randrange(0, dis_width - snake_block)/10)*10
+        
+        #The coordinates of the food that appear randomly in the game area
+        foodx = round(random.randrange(0, dis_width - snake_block)/10)*10 
         foody = round(random.randrange(0, dis_height - snake_block)/10)*10
         foodx2 = round(random.randrange(0, dis_width - snake_block)/10)*10
         foody2 = round(random.randrange(0, dis_height - snake_block)/10)*10
         while not game_over:
-            while game_close==True:
-                run = False
-                display.fill(black)
-                message("You Lost! Press Q-Quit or C-Play Again", red,640,360)
-                img_disp('100.jpg',825,200)
-                Your_score(maz)
+            while game_close==True: #while loop when the player loses
+                run = False #the snake stops
+                display.fill(black) #black screen display
+                message("You Lost! Press Q-Quit or C-Play Again", red,640,360) #lost message display
+                img_disp('100.jpg',825,200) #lost image display
+                Your_score(maz) #scpore display
                 pygame.display.update()
 
                 for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_q:
+                    if event.type == pygame.KEYDOWN: 
+                        if event.key == pygame.K_q: #if the player press "q" key, the game is closed
                             game_over = True
                             game_close = False
-                        if event.key == pygame.K_c:
+                        if event.key == pygame.K_c: #if the player press "c"key, the game loop in lauched and anothe game begins.
                             gameLoop()
 
-            if game_close == True:
+            if game_close == True: 
                 fscore.append(maz)
 
             for event in pygame.event.get():              # keys to keyboard
                 if event.type==QUIT:
                         game_over==True
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN: #if the keydow is pressed, the snake goes down
                     if event.key == pygame.K_DOWN:
                        x1_change=0
                        y1_change=(snake_block-sre)
-                    elif event.key == pygame.K_UP:
+                    elif event.key == pygame.K_UP: #if the keyup is pressed, the snake goes up
                         x1_change=0
                         y1_change=-(snake_block-sre)
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT: #if the keyright is pressed, the snake goes right
                         x1_change=(snake_block-sre)
                         y1_change=0
-                    elif event.key == pygame.K_LEFT:
+                    elif event.key == pygame.K_LEFT: #if the keyleft is pressed, the snake goes left
                         x1_change=-(snake_block-sre)
                         y1_change=0
-                    elif event.key == pygame.K_p:
+                    elif event.key == pygame.K_p: #if the key "p" is pressed, the game is paused.
                             game_pause = True
-
+           
+          #while loop when the game is paused
             while game_pause == True:
-                clock.tick(0)
-                display.fill(black)
-                message_p("You paused the game// press 'P' to continue or 'Q' to quit", red)
+                clock.tick(0) #the mouvement stops
+                display.fill(black) #black screen display
+                message_p("You paused the game// press 'P' to continue or 'Q' to quit", red) #pause message display
                 Your_score(maz)
                 pygame.display.update()
 
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_p:
+                        if event.key == pygame.K_p: #if the player press "p" key a counter of 3 secpond is launched to have time to get ready
                             display.fill(black)
                             message_p("3", red)
                             pygame.display.update()
@@ -162,21 +164,22 @@ def gameLoop():  # creating a function
                             pygame.display.update()
                             pygame.time.wait(1000)
                             game_pause = False
-                        elif event.key == pygame.K_q:
+                        elif event.key == pygame.K_q: #but if the player press "q" key, the game is closed
                             pygame.quit()
 
-            if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0:
+            if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0: #if the snake touches the edges of the area, the player loses
                 game_close = True
 
-            x1+=x1_change
+            x1+=x1_change #mouvement of the snake
             y1+=y1_change
             display.fill(black)
-
+            
+            #food and snake display which were not graphic elements
             pygame.draw.rect(display, red, [foodx, foody, snake_block, snake_block])
             pygame.draw.rect(display, green, [x1, y1, snake_block, snake_block])
             pygame.draw.rect(display, violet, [foodx2, foody2, snake_block, snake_block])
             snake_Head=[]
-            snake_Head.append(x1)
+            snake_Head.append(x1) #elongation of the snake
             snake_Head.append(y1)
             snake_List.append(snake_Head)
             if len(snake_List)>Lenght_of_snake:
