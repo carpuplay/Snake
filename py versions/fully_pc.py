@@ -6,8 +6,6 @@ from pygame.locals import *
 import pygame
 import random
 from os import path
-#from setings import *
-
 
 pygame.init()
 mixer.init()
@@ -21,7 +19,6 @@ blue = pygame.Color(0,0,255)
 violet= pygame.Color(255,0,255)
 
 #display settings
-
 display=pygame.display.set_mode((1920,1080),pygame.FULLSCREEN)
 x,y=display.get_size()
 print(x,y)
