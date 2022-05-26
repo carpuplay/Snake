@@ -159,10 +159,10 @@ def gameLoop():  # creating a function
                         elif event.key == pygame.K_q: #but if the player press "q" key, the game is closed
                             pygame.quit()
 
-            if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0: #if the snake touches the edges of the area, the player loses
+            if x1 >= dis_width or x1 < 0 or y1 >= dis_height or y1 < 0: #compares the position of the head of the snake with the limits of the game
                 game_close = True
 
-            x1+=x1_change #mouvement of the snake
+            x1+=x1_change #updates the new position of the head by adding the movement variable to the position of head.
             y1+=y1_change
             display.fill(black)
             
@@ -171,7 +171,7 @@ def gameLoop():  # creating a function
             pygame.draw.rect(display, green, [x1, y1, snake_block, snake_block])
             pygame.draw.rect(display, violet, [foodx2, foody2, snake_block, snake_block])
             snake_Head=[]
-            snake_Head.append(x1) #elongation of the snake
+            snake_Head.append(x1) #new position of the head
             snake_Head.append(y1)
             snake_List.append(snake_Head)
             if len(snake_List)>Lenght_of_snake:
