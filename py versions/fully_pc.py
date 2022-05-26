@@ -99,8 +99,7 @@ def gameLoop():  # creating a function
         foodx2 = round(random.randrange(0, dis_width - snake_block)/10)*10
         foody2 = round(random.randrange(0, dis_height - snake_block)/10)*10
         while not game_over:
-            while game_close==True: #while loop when the player loses
-                run = False #the snake stops
+            while game_close==True: #while loop when the player 
                 display.fill(black) #black screen display
                 message("You Lost! Press Q-Quit or C-Play Again", red,640,360) #lost message display
                 img_disp('100.jpg',825,200) #lost image display
