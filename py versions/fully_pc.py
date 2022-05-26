@@ -81,7 +81,6 @@ def gameLoop():  # creating a function
         game_pause = False #when the game is in progress, the game is not in pause
         x1 = dis_width / 2 #initials coordinates of the snake in the middle of the game area.
         y1 = dis_height / 2
-        fscore=[] #score list
         snake_List=[] #position of all part of the snake
         Lenght_of_snake=1 #initil lenght of the snake
         maz=0 #
@@ -113,9 +112,6 @@ def gameLoop():  # creating a function
                             game_close = False
                         if event.key == pygame.K_c: #if the player press "c"key, the game loop in lauched and anothe game begins.
                             gameLoop()
-
-            if game_close == True: 
-                fscore.append(maz)
 
             for event in pygame.event.get():              # keys to keyboard
                 if event.type==QUIT:
